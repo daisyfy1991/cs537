@@ -1,3 +1,4 @@
+#include "pstat.h"
 #ifndef _SYSFUNC_H_
 #define _SYSFUNC_H_
 
@@ -11,6 +12,8 @@ int sys_fork(void);
 int sys_fstat(void);
 int sys_getpid(void);
 int sys_getprocs(void); //  added by Ying
+int sys_getpinfo(void); //  added by Ying
+int sys_setpri(void); //  added by Ying
 int sys_kill(void);
 int sys_link(void);
 int sys_mkdir(void);

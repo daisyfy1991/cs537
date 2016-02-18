@@ -8,6 +8,8 @@ build xv6 using make
 **********************************************************************
 Trying to clean project using make clean
 make clean
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG kernel/proc.c -MF kernel/proc.d -MT kernel/proc.d -MT kernel/proc.o
 rm -rf kernel/bio.o kernel/console.o kernel/exec.o kernel/file.o kernel/fs.o kernel/ide.o kernel/ioapic.o kernel/kalloc.o kernel/kbd.o kernel/lapic.o kernel/main.o kernel/mp.o kernel/picirq.o kernel/pipe.o kernel/proc.o kernel/spinlock.o kernel/string.o kernel/swtch.o kernel/syscall.o kernel/sysfile.o kernel/sysproc.o kernel/timer.o kernel/trapasm.o kernel/trap.o kernel/uart.o kernel/vectors.o kernel/vm.o kernel/bootmain.o kernel/bootasm.o kernel/multiboot.o kernel/data.o kernel/bootother.o kernel/initcode.o kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/ide.d kernel/ioapic.d kernel/kalloc.d kernel/kbd.d kernel/lapic.d kernel/main.d kernel/mp.d kernel/picirq.d kernel/pipe.d kernel/proc.d kernel/spinlock.d kernel/string.d kernel/swtch.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/timer.d kernel/trapasm.d kernel/trap.d kernel/uart.d kernel/vectors.d kernel/vm.d kernel/bootmain.d kernel/bootasm.d kernel/multiboot.d kernel/data.d kernel/bootother.d kernel/initcode.d kernel/vectors.S kernel/bootblock kernel/bootblock.out kernel/bootother.out kernel/initcode.out kernel/kernel bootother initcode xv6.img user/bin user/cat user/echo user/forktest user/grep user/init user/kill user/ln user/hello user/ls user/mkdir user/rm user/sh user/stressfs user/tester user/usertests user/wc user/zombie user/cat.o user/echo.o user/forktest.o user/grep.o user/init.o user/kill.o user/ln.o user/hello.o user/ls.o user/mkdir.o user/rm.o user/sh.o user/stressfs.o user/tester.o user/usertests.o user/wc.o user/zombie.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/cat.d user/echo.d user/forktest.d user/grep.d user/init.d user/kill.d user/ln.d user/hello.d user/ls.d user/mkdir.d user/rm.d user/sh.d user/stressfs.d user/tester.d user/usertests.d user/wc.d user/zombie.d user/ulib.d user/usys.d user/printf.d user/umalloc.d tools/mkfs tools/mkfs.o tools/mkfs.d fs fs.img .gdbinit .bochsrc dist
 Trying to build project using make
 make
@@ -232,15 +234,15 @@ ld  -m    elf_i386 -nostdlib --omagic \
 dd if=/dev/zero of=xv6.img count=10000
 10000+0 records in
 10000+0 records out
-5120000 bytes (5.1 MB) copied, 0.0106342 s, 481 MB/s
+5120000 bytes (5.1 MB) copied, 0.0112651 s, 454 MB/s
 dd if=kernel/bootblock of=xv6.img conv=notrunc
 1+0 records in
 1+0 records out
-512 bytes (512 B) copied, 6.3979e-05 s, 8.0 MB/s
+512 bytes (512 B) copied, 6.7395e-05 s, 7.6 MB/s
 dd if=kernel/kernel of=xv6.img seek=1 conv=notrunc
-253+1 records in
-253+1 records out
-129686 bytes (130 kB) copied, 0.000246708 s, 526 MB/s
+256+1 records in
+256+1 records out
+131384 bytes (131 kB) copied, 0.000300997 s, 436 MB/s
 gcc -c  -iquote include -Wall -Werror -ggdb  -o tools/mkfs.o tools/mkfs.c
 gcc  tools/mkfs.o -o tools/mkfs
 mkdir -p fs
@@ -303,25 +305,25 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/zombie fs/zombie
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-stressfs
-tester
-cat
-ln
 usertests
 README
-init
+ln
 forktest
-hello
-echo
 mkdir
-sh
-grep
-ls
 kill
-zombie
+tester
+grep
+echo
+stressfs
 rm
 wc
-balloc: first 441 blocks have been allocated
+ls
+cat
+sh
+zombie
+init
+hello
+balloc: first 443 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/stressfs user/bin/grep user/bin/tester user/bin/hello user/bin/kill user/bin/cat user/bin/mkdir user/bin/init user/bin/rm user/bin/echo user/bin/ls user/bin/ln user/bin/usertests user/bin/sh user/bin/wc user/bin/zombie
 
@@ -329,15 +331,16 @@ rm user/bin/stressfs user/bin/grep user/bin/tester user/bin/hello user/bin/kill 
 test build PASSED
  (build xv6 using make)
 
-starting procs1
+starting getpinfo
 
 **********************************************************************
 
-Test procs1
-call getprocs() from a user program
+Test getpinfo
+call getpinfo() from a user program 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/getpinfo.c
 
 **********************************************************************
-Running xv6 user progam /u/c/s/cs537-1/ta/tests/1b/ctests/procs1.c
+Running xv6 user progam /u/c/s/cs537-1/ta/tests/2b/ctests/getpinfo.c
 Trying to build project using make
 make
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
@@ -347,25 +350,25 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-stressfs
-tester
-cat
-ln
 usertests
 README
-init
+ln
 forktest
-hello
-echo
 mkdir
-sh
-grep
-ls
 kill
-zombie
+tester
+grep
+echo
+stressfs
 rm
 wc
-balloc: first 441 blocks have been allocated
+ls
+cat
+sh
+zombie
+init
+hello
+balloc: first 444 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox CPUS=1
@@ -377,21 +380,27 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-TEST PASSED
-$ 
 
-test procs1 PASSED (20 of 20)
- (call getprocs() from a user program)
+ **** PInfo **** 
+pid: 1 hticks: 0 lticks: 2
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 0 lticks: 0
+Should print 1 then 2$ 
 
-starting procs2
+test getpinfo PASSED (10 of 10)
+ (call getpinfo() from a user program 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/getpinfo.c)
+
+starting setpri
 
 **********************************************************************
 
-Test procs2
-call fork() before getprocs()
+Test setpri
+call setpri() from a user program 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/setpri.c
 
 **********************************************************************
-Running xv6 user progam /u/c/s/cs537-1/ta/tests/1b/ctests/procs2.c
+Running xv6 user progam /u/c/s/cs537-1/ta/tests/2b/ctests/setpri.c
 Trying to build project using make
 make
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
@@ -401,25 +410,25 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-stressfs
-tester
-cat
-ln
 usertests
 README
-init
+ln
 forktest
-hello
-echo
 mkdir
-sh
-grep
-ls
 kill
-zombie
+tester
+grep
+echo
+stressfs
 rm
 wc
-balloc: first 441 blocks have been allocated
+ls
+cat
+sh
+zombie
+init
+hello
+balloc: first 444 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox CPUS=1
@@ -431,21 +440,22 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-TEST PASSED
-$ 
+Should print 1 then 2$ 
 
-test procs2 PASSED (20 of 20)
- (call fork() before getprocs())
+test setpri PASSED (10 of 10)
+ (call setpri() from a user program 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/setpri.c)
 
-starting procs3
-
-**********************************************************************
-
-Test procs3
-call getprocs() with a full process table
+starting processesinuse
 
 **********************************************************************
-Running xv6 user progam /u/c/s/cs537-1/ta/tests/1b/ctests/procs3.c
+
+Test processesinuse
+check number of processes in use by calling getpinfo() 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/processesinuse.c
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-1/ta/tests/2b/ctests/processesinuse.c
 Trying to build project using make
 make
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
@@ -455,25 +465,25 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-stressfs
-tester
-cat
-ln
 usertests
 README
-init
+ln
 forktest
-hello
-echo
 mkdir
-sh
-grep
-ls
 kill
-zombie
+tester
+grep
+echo
+stressfs
 rm
 wc
-balloc: first 441 blocks have been allocated
+ls
+cat
+sh
+zombie
+init
+hello
+balloc: first 445 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox CPUS=1
@@ -485,21 +495,35 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-TEST PASSED
 
+**** PInfo ****
+pid: 1 hticks: 0 lticks: 0
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 0 lticks: 1
+pid: 4 hticks: 0 lticks: 73
+pid: 5 hticks: 0 lticks: 73
+pid: 6 hticks: 0 lticks: 73
+pid: 7 hticks: 0 lticks: 73
+pid: 8 hticks: 0 lticks: 73
+pid: 9 hticks: 0 lticks: 72
+pid: 10 hticks: 0 lticks: 72
+Number of processes in use 10
+Should print 1 then 2
 
-test procs3 PASSED (20 of 20)
- (call getprocs() with a full process table)
+test processesinuse PASSED (20 of 20)
+ (check number of processes in use by calling getpinfo() 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/processesinuse.c)
 
-starting procs4
+starting default_priority
 
 **********************************************************************
 
-Test procs4
-call getprocs() with a process table filled with zombies
+Test default_priority
+check default priority set for processes by measuring hticks 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/default_priority.c
 
 **********************************************************************
-Running xv6 user progam /u/c/s/cs537-1/ta/tests/1b/ctests/procs4.c
+Running xv6 user progam /u/c/s/cs537-1/ta/tests/2b/ctests/default_priority.c
 Trying to build project using make
 make
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
@@ -509,25 +533,25 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-stressfs
-tester
-cat
-ln
 usertests
 README
-init
+ln
 forktest
-hello
-echo
 mkdir
-sh
-grep
-ls
 kill
-zombie
+tester
+grep
+echo
+stressfs
 rm
 wc
-balloc: first 441 blocks have been allocated
+ls
+cat
+sh
+zombie
+init
+hello
+balloc: first 446 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox CPUS=1
@@ -539,21 +563,27 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-TEST PASSED
 
+ **** PInfo **** 
+pid: 1 hticks: 0 lticks: 0
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 0 lticks: 96
+Should print 1 then 2
 
-test procs4 PASSED (20 of 20)
- (call getprocs() with a process table filled with zombies)
+test default_priority PASSED (20 of 20)
+ (check default priority set for processes by measuring hticks 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/default_priority.c)
 
-starting procs5
+starting check_hticks
 
 **********************************************************************
 
-Test procs5
-call getprocs() after some entries turn back to UNUSED
+Test check_hticks
+check if hticks being incremented for high priority process 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/check_hticks.c
 
 **********************************************************************
-Running xv6 user progam /u/c/s/cs537-1/ta/tests/1b/ctests/procs5.c
+Running xv6 user progam /u/c/s/cs537-1/ta/tests/2b/ctests/check_hticks.c
 Trying to build project using make
 make
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
@@ -563,25 +593,25 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-stressfs
-tester
-cat
-ln
 usertests
 README
-init
+ln
 forktest
-hello
-echo
 mkdir
-sh
-grep
-ls
 kill
-zombie
+tester
+grep
+echo
+stressfs
 rm
 wc
-balloc: first 442 blocks have been allocated
+ls
+cat
+sh
+zombie
+init
+hello
+balloc: first 447 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox CPUS=1
@@ -593,32 +623,415 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-TEST PASSED
+
+ **** PInfo Before**** 
+pid: 1 hticks: 0 lticks: 0
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 0 lticks: 0
+
+ **** PInfo After**** 
+pid: 1 hticks: 0 lticks: 0
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 474 lticks: 0
+Should print 1 then 2
+
+test check_hticks PASSED (20 of 20)
+ (check if hticks being incremented for high priority process 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/check_hticks.c)
+
+starting change_priority
+
+**********************************************************************
+
+Test change_priority
+check if hticks and lticks being incremented as expected when the priority is changed back and forth 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/change_priority.c
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-1/ta/tests/2b/ctests/change_priority.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+usertests
+README
+ln
+forktest
+mkdir
+kill
+tester
+grep
+echo
+stressfs
+rm
+wc
+ls
+cat
+sh
+zombie
+init
+hello
+balloc: first 448 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox CPUS=1
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+
+ ****PInfo before**** 
+pid: 1 hticks: 0 lticks: 1
+pid: 2 hticks: 0 lticks: 1
+pid: 3 hticks: 0 lticks: 1
+
+ ****PInfo after**** 
+pid: 1 hticks: 0 lticks: 1
+pid: 2 hticks: 0 lticks: 1
+pid: 3 hticks: 476 lticks: 1
+
+ ****PInfo before**** 
+pid: 1 hticks: 0 lticks: 1
+pid: 2 hticks: 0 lticks: 1
+pid: 3 hticks: 476 lticks: 1
+
+ ****PInfo after**** 
+pid: 1 hticks: 0 lticks: 1
+pid: 2 hticks: 0 lticks: 1
+pid: 3 hticks: 476 lticks: 475
+Should print 1 then 2
+
+test change_priority PASSED (20 of 20)
+ (check if hticks and lticks being incremented as expected when the priority is changed back and forth 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/change_priority.c)
+
+starting run_high_priority
+
+**********************************************************************
+
+Test run_high_priority
+check no low priority processes are running when there is high priority 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/run_high_priority.c
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-1/ta/tests/2b/ctests/run_high_priority.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+usertests
+README
+ln
+forktest
+mkdir
+kill
+tester
+grep
+echo
+stressfs
+rm
+wc
+ls
+cat
+sh
+zombie
+init
+hello
+balloc: first 448 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox CPUS=1
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+
+ ****PInfo before**** 
+pid: 1 hticks: 0 lticks: 0
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 0 lticks: 1
+pid: 4 hticks: 0 lticks: 0
+
+ ****PInfo after**** 
+pid: 1 hticks: 0 lticks: 0
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 0 lticks: 1
+pid: 4 hticks: 944 lticks: 0
+Should print 1 then 2zombie!
 
 
-test procs5 PASSED (20 of 20)
- (call getprocs() after some entries turn back to UNUSED)
+test run_high_priority PASSED (20 of 20)
+ (check no low priority processes are running when there is high priority 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/run_high_priority.c)
+
+starting sleep_high_priority
+
+**********************************************************************
+
+Test sleep_high_priority
+check if low priority processes run when high priority is put to sleep 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/sleep_high_priority.c
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-1/ta/tests/2b/ctests/sleep_high_priority.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+usertests
+README
+ln
+forktest
+mkdir
+kill
+tester
+grep
+echo
+stressfs
+rm
+wc
+ls
+cat
+sh
+zombie
+init
+hello
+balloc: first 447 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox CPUS=1
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+
+ ****PInfo before**** 
+pid: 1 hticks: 0 lticks: 0
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 0 lticks: 0
+pid: 4 hticks: 0 lticks: 100
+
+ ****PInfo after**** 
+pid: 1 hticks: 0 lticks: 0
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 0 lticks: 0
+pid: 4 hticks: 0 lticks: 600
+Should print 1 then 2$ 
+
+test sleep_high_priority PASSED (20 of 20)
+ (check if low priority processes run when high priority is put to sleep 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/sleep_high_priority.c)
+
+starting awake_high_priority
+
+**********************************************************************
+
+Test awake_high_priority
+check if only high priority process run when high priority is awake from sleep 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/awake_high_priority.c
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-1/ta/tests/2b/ctests/awake_high_priority.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+usertests
+README
+ln
+forktest
+mkdir
+kill
+tester
+grep
+echo
+stressfs
+rm
+wc
+ls
+cat
+sh
+zombie
+init
+hello
+balloc: first 447 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox CPUS=1
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+
+ ****PInfo before**** 
+pid: 1 hticks: 0 lticks: 0
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 0 lticks: 0
+pid: 4 hticks: 0 lticks: 200
+pid: 5 hticks: 0 lticks: 0
+
+ ****PInfo after**** 
+pid: 1 hticks: 0 lticks: 0
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 942 lticks: 0
+pid: 4 hticks: 0 lticks: 200
+pid: 5 hticks: 0 lticks: 0
+Should print 1 then 2
+
+test awake_high_priority PASSED (20 of 20)
+ (check if only high priority process run when high priority is awake from sleep 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/awake_high_priority.c)
+
+starting multiple_high_priority
+
+**********************************************************************
+
+Test multiple_high_priority
+check if multiple high priority processes run in round robin 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/multiple_high_priority.c
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-1/ta/tests/2b/ctests/multiple_high_priority.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+usertests
+README
+ln
+forktest
+mkdir
+kill
+tester
+grep
+echo
+stressfs
+rm
+wc
+ls
+cat
+sh
+zombie
+init
+hello
+balloc: first 447 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox CPUS=1
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+cpu0: starting
+init: starting sh
+$ tester
+tester
+
+ ****PInfo before**** 
+pid: 1 hticks: 0 lticks: 0
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 0 lticks: 1
+pid: 4 hticks: 0 lticks: 0
+pid: 5 hticks: 0 lticks: 0
+
+ ****PInfo after**** 
+pid: 1 hticks: 0 lticks: 0
+pid: 2 hticks: 0 lticks: 0
+pid: 3 hticks: 478 lticks: 1
+pid: 4 hticks: 478 lticks: 0
+pid: 5 hticks: 0 lticks: 0
+Should print 1 then 2$ 
+
+test multiple_high_priority PASSED (20 of 20)
+ (check if multiple high priority processes run in round robin 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/multiple_high_priority.c)
 
 **********************************************************************
 Summary:
 test build PASSED
  (build xv6 using make)
 
-test procs1 PASSED (20 of 20)
- (call getprocs() from a user program)
+test getpinfo PASSED (10 of 10)
+ (call getpinfo() from a user program 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/getpinfo.c)
 
-test procs2 PASSED (20 of 20)
- (call fork() before getprocs())
+test setpri PASSED (10 of 10)
+ (call setpri() from a user program 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/setpri.c)
 
-test procs3 PASSED (20 of 20)
- (call getprocs() with a full process table)
+test processesinuse PASSED (20 of 20)
+ (check number of processes in use by calling getpinfo() 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/processesinuse.c)
 
-test procs4 PASSED (20 of 20)
- (call getprocs() with a process table filled with zombies)
+test default_priority PASSED (20 of 20)
+ (check default priority set for processes by measuring hticks 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/default_priority.c)
 
-test procs5 PASSED (20 of 20)
- (call getprocs() after some entries turn back to UNUSED)
+test check_hticks PASSED (20 of 20)
+ (check if hticks being incremented for high priority process 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/check_hticks.c)
 
-Passed 6 of 6 tests.
-Overall 6 of 6
-Points 100 of 100
+test change_priority PASSED (20 of 20)
+ (check if hticks and lticks being incremented as expected when the priority is changed back and forth 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/change_priority.c)
+
+test run_high_priority PASSED (20 of 20)
+ (check no low priority processes are running when there is high priority 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/run_high_priority.c)
+
+test sleep_high_priority PASSED (20 of 20)
+ (check if low priority processes run when high priority is put to sleep 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/sleep_high_priority.c)
+
+test awake_high_priority PASSED (20 of 20)
+ (check if only high priority process run when high priority is awake from sleep 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/awake_high_priority.c)
+
+test multiple_high_priority PASSED (20 of 20)
+ (check if multiple high priority processes run in round robin 
+ The corresponding test file is at ~cs537-1/ta/tests/2b/ctests/multiple_high_priority.c)
+
+Passed 11 of 11 tests.
+Overall 11 of 11
+Points 180 of 180

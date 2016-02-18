@@ -1,3 +1,5 @@
+#include "pstat.h"
+
 #ifndef _PROC_H_
 #define _PROC_H_
 // Segments in proc->gdt.
@@ -74,6 +76,9 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+  int pri;                     // Added by Ying
+  int htick;
+  int ltick;
 };
 
 // Process memory is laid out contiguously, low addresses first:
@@ -83,4 +88,6 @@ struct proc {
 //   expandable heap
 
 int getprocs(void); //  added by Ying
+int getpinfo(struct pstat*); //  added by Ying
+int setpri(int); //  added by Ying
 #endif // _PROC_H_

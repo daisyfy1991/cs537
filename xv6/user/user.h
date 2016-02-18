@@ -1,3 +1,5 @@
+#include "pstat.h"
+
 #ifndef _USER_H_
 #define _USER_H_
 
@@ -23,6 +25,8 @@ int chdir(char*);
 int dup(int);
 int getpid(void);
 int getprocs(void); //  added by Ying
+int getpinfo(struct pstat*); //  added by Ying
+int setpri(int); //  added by Ying
 char* sbrk(int);
 int sleep(int);
 int uptime(void);

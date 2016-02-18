@@ -27,6 +27,8 @@ SYSCALL(chdir)
 SYSCALL(dup)
 SYSCALL(getpid)
 SYSCALL(getprocs)   //  added by Ying
+SYSCALL(getpinfo)   //  added by Ying
+SYSCALL(setpri)   //  added by Ying
 SYSCALL(sbrk)
 SYSCALL(sleep)
 SYSCALL(uptime)

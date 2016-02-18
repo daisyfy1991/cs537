@@ -48,6 +48,25 @@ sys_getprocs(void)    //  added by Ying
 }
 
 int
+sys_getpinfo(void)    //  added by Ying
+{
+    struct pstat *st;
+
+    if(argptr(0, (void*)(&st), sizeof(*st)) < 0)
+        return -1;
+    return getpinfo(st);
+}
+
+int
+sys_setpri(void)    //  added by Ying
+{
+    int num;
+    if(argint(0, &num) < 0)
+        return -1;
+    return setpri(num);
+}
+
+int
 sys_sbrk(void)
 {
   int addr;
