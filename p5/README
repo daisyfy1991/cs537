@@ -1,0 +1,34 @@
+part a
+
+use mmap 
+    void *img_ptr = mmap(NULL, sbuf.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+
+superblock
+    sb = (struct superblock *)(img_ptr + BSIZE);
+
+bitmap
+    void *bitmap_ptr = (void *)(img_ptr + (sb->ninodes/IPB + 3)*BSIZE);
+
+inode table
+    struct dinode *dip = (struct dinode *)(img_ptr + 2*BSIZE);
+
+if indirect inode
+    uint *indirPtr = (uint *)(img_ptr + dip->addrs[NDIRECT]*BSIZE);
+
+
+to compare with nlink
+int nlinks[sb->ninodes];
+
+to compare with bitmap
+    int inode_use[sb->ninodes];  
+   
+to compare inode and in directory
+int inode_use_dir[sb->ninodes];
+
+
+
+part b
+
+modified:
+in sysfile.c write(),open(),create()
+in fs.c      writei(), readi(), iupdate(), itrunc()

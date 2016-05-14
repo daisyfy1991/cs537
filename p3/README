@@ -1,0 +1,39 @@
+null pointer dereference
+
+1) exec.c
+    sz = PGSIZE
+2) copyuvm
+    i = PGSIZE
+3) user/makefile
+    load memory from 0x1000
+to fix init problem:
+in argprt, argptr, add:
+if (pid != 1 && addr < PGSIZE) return -1
+
+
+shared memory
+
+new member of proc:
+    acsshmem  //number of accesses to shmem of this proc
+    shmem[4]  //to store the mapped va of ith pa in shmem[i]
+    forked[4] //for the use of tracking shmemcount
+
+new function:
+    void shmeminit(void)
+        kalloc()
+    
+new syscalls:
+    (int) shmem_count(int)
+    void* shmem_access(int)
+        mappages(pgdir, va, PGSIZE, pa, mode)
+
+careful:
+    invalid page number
+    full address space
+    not deallocate when no one reference them
+    syscall args: pointers from shared memory
+    fork -> shmemcount increment accordingly
+    exec -> shmemcount decrement accordingly
+
+  
+
